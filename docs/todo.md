@@ -1,54 +1,56 @@
 # To-Do
 
-## Arquitetura e Modelagem de Banco de Dados
+## Database Architecture and Modeling
 
-- [ ] Criar a arquitetura do banco de dados
-  - [ ] Identificar entidades principais (por exemplo, Loja, Produto, Funcionário)
-  - [ ] Definir os atributos de cada entidade
-  - [ ] Estabelecer relacionamentos entre as entidades
+- [ ] Create the database architecture
+  - [ ] Identify main entities (e.g., Store, Product, Employee)
+  - [ ] Define attributes for each entity
+  - [ ] Establish relationships between entities
 
-- [ ] Desenvolver esquema de tabelas do banco de dados
-  - [ ] Criar tabelas para cada entidade identificada
-  - [ ] Definir tipos de dados e restrições para cada atributo
-  - [ ] Estabelecer chaves primárias e estrangeiras
+- [ ] Develop database schema
+  - [ ] Create tables for each identified entity
+  - [ ] Define data types and constraints for each attribute
+  - [ ] Establish primary and foreign keys
 
-## Backend e API RESTful
+## Backend and RESTful API
 
-- [ ] Implementar estrutura básica do backend
-  - [ ] Configurar ambiente de desenvolvimento, servidor e afins
-  - [ ] Configurar conexão com o banco de dados e definir tecnologias para isso
+- [ ] Implement basic backend structure
+  - [|] Set up development environment, server, and related configurations
+  - [X] Define the architecture
+  - [ ] Configure database connection and choose technologies for it
 
-- [ ] Criar endpoints da API RESTful
-  - [ ] Endpoint para adicionar um novo produto ao estoque
-  - [ ] Endpoint para atualizar informações de um produto existente
-  - [ ] Endpoint para excluir um produto do estoque
-  - [ ] Endpoint para visualizar todos os produtos disponíveis
-  - [ ] Endpoint para pesquisar produtos por nome ou categoria
+- [ ] Create RESTful API endpoints
+  - [ ] Endpoint to add a new product to the inventory
+  - [ ] Endpoint to update information of an existing product
+  - [ ] Endpoint to delete a product from the inventory
+  - [ ] Endpoint to view all available products
+  - [ ] Endpoint to search products by name or category
 
-- [ ] Implementar lógica de negócios
-  - [ ] Lógica para compartilhar inventário entre lojas
-  - [ ] Lógica para geração de relatórios de desempenho
-  - [ ] Lógica para gerenciamento de usuários e permissões
+- [ ] Implement business logic
+  - [ ] Logic to share inventory between stores
+  - [ ] Logic for generating performance reports
+  - [ ] Logic for user management and permissions
 
-## Otimização de Desempenho e Segurança
+## Performance Optimization and Security
 
-- [ ] Otimizar consultas SQL
-  - [ ] Identificar consultas frequentes e aplicar índices apropriados
-  - [ ] Implementar estratégias de paginação para consultas grandes
+- [ ] Optimize SQL queries
+  - [ ] Identify frequent queries and apply appropriate indexes
+  - [ ] Implement pagination strategies for large queries
 
-- [ ] Implementar validação de dados e segurança
-  - [ ] Validar entrada de dados para prevenir ataques de injeção
-  - [ ] Implementar autenticação e autorização para proteger endpoints sensíveis
+- [ ] Implement data validation and security
+  - [ ] Validate input data to prevent injection attacks
+  - [ ] Implement authentication and authorization to protect sensitive endpoints
 
-- [ ] Implementar cache
-    - [ ] Escolher tecnologia de cache
-## Testes e Documentação
+- [ ] Implement caching
+  - [ ] Choose caching technology
 
-- [ ] Escrever testes automatizados
-  - [ ] Testes de unidade para as funções do backend
-  - [ ] Testes de integração para verificar a integração entre os componentes
-  - [ ] Testes de carga para avaliar o desempenho do sistema sob carga
+## Testing and Documentation
 
-- [ ] Documentar a API RESTful
-  - [ ] Criar documentação clara e concisa dos endpoints disponíveis
-  - [ ] Incluir exemplos de uso e descrição dos parâmetros aceitos
+- [ ] Write automated tests
+  - [ ] Unit tests for backend functions
+  - [ ] Integration tests to verify integration between components
+  - [ ] Load tests to evaluate system performance under load
+
+- [ ] Document the RESTful API
+  - [ ] Create clear and concise documentation of available endpoints
+  - [ ] Include usage examples and description of accepted parameters
