@@ -1,3 +1,5 @@
 import { startServer } from "./server";
 
-startServer()
+startServer((server) => {
+    console.log(`Server running at PORT ${server.port} 🚀`)
+})
