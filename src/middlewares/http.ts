@@ -1,13 +1,37 @@
 import type { Serve } from "bun";
 import type { Methods } from "../types/methods";
-import { translateFormData } from "../lib/translateFormData";
 import { app } from "../lib/application";
+import { Router } from "../lib/router";
+import type { ServerResponse } from "../types/response";
+import type { Request } from "../types/request";
+import type { ApplicationProps } from "../types/application";
 const METHODS_WITHOUT_BODY = ['DELETE', 'GET']
+const routerExample = new Router()
+routerExample.get('/', (req, res) => {
+    res.json("Hello world")
+})
+routerExample.post('/', (req, res) => {
+    res.json(req.body)
+})
 export const ServerConfig = {
     async fetch(request, server) {
-        let body = {}
+        let body = {};
+        let response: Response = new Response();
+        const cookies = request.headers.get('cookie')
         if (!METHODS_WITHOUT_BODY.includes(request.method)) body = await request.json()
-        const { pathname, searchParams } = new URL(request.url)
-        return new Response(JSON.stringify(body))
+        const { pathname } = new URL(request.url)
+        const req = { body, cookies, headers: request.headers, method: request.method as Methods, pathname, url: request.url } satisfies Omit<Omit<Request, 'params'>, 'query'>
+        const res = { 
+            json: (data) => {
+                response = new Response(JSON.stringify(data), { headers: { 'Content-Type': 'application/json' }, status: 200 })
+                return response
+            },
+            status: (status, json?: any) => {
+                response = new Response(JSON.stringify(json), { status: status })
+                return response
+            }
+         } satisfies ServerResponse
+        app({ request: req, response: res }, routerExample)
+        return response
     }
 } as Serve
