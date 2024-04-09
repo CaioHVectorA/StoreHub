@@ -7,12 +7,20 @@ import type { Request } from "../types/request";
 import type { ApplicationProps } from "../types/application";
 const METHODS_WITHOUT_BODY = ['DELETE', 'GET']
 const routerExample = new Router()
-routerExample.get('/', (req, res) => {
+routerExample.get('/teste', (req, res) => {
     res.json("Hello world")
 })
 routerExample.post('/', (req, res) => {
     res.json(req.body)
 })
+routerExample.get('/:id', (req, res) => {
+    res.json(req.params)
+})
+routerExample.get('/:route/:routi', (req, res) => {
+    res.json(req.params)
+})
+const router = new Router()
+router.use(routerExample)
 export const ServerConfig = {
     async fetch(request, server) {
         let body = {};
