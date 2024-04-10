@@ -23,7 +23,7 @@ export function app({ request, response }: ApplicationProps, mainRouter: RouterI
     // implement params, query logic
     let { params, route: routeFound } = getParams(request, mainRouter)
     const req = { ...request, params, query: {} } satisfies Request
-    const route = routeFound || mainRouter.routes.find(route => route.pathname == req.pathname && route.method == req.method)
+    const route = mainRouter.routes.find(route => route.pathname == req.pathname && route.method == req.method) || routeFound
     // todo catch route not found error!
     route?.callback(req, response)
 }

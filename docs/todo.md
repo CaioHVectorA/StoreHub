@@ -14,10 +14,12 @@
 
 ## Backend and RESTful API
 
-- [ ] Implement basic backend structure
-  - [|] Set up development environment, server, and related configurations
+- [X] Implement basic backend structure
+  - [X] Set up development environment, server, and related configurations
   - [X] Define the architecture
-  - [ ] Configure database connection and choose technologies for it
+  - [\] Configure database connection and choose technologies for it
+    - Bun SQLite for dev
+    - ???? For production
 
 - [ ] Create RESTful API endpoints
   - [ ] Endpoint to add a new product to the inventory
