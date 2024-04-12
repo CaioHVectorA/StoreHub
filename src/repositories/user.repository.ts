@@ -1,5 +1,6 @@
 import { Repository } from "./base";
 import { type User, type UserInput } from "../types/models/User";
+import { AppError } from "../middlewares/appError";
 export class UserRepository extends Repository {
     constructor() {
         super()
@@ -16,14 +17,10 @@ export class UserRepository extends Repository {
         )`)
     }
     create({ CPF, email, password, username, id }: UserInput & { id: string }) {
+        const alreadyExists = this.db.prepare("SELECT id from user WHERE id = ?1").get(id)
+        if (alreadyExists) throw new AppError('Usuário já existe!')
         const insert = this.db.prepare("INSERT INTO user (username, email, password, CPF, id) VALUES (?1, ?2, ?3, ?4, ?5)")
-        try {
-            insert.run(username, email, password, CPF, id)
-            return "Usuário criado com sucesso!"
-        } catch(err) {
-            console.log(err)
-            return "Teste"
-        }
-
+        insert.run(username, email, password, CPF, id)
+        return "Usuário criado com sucesso!"
     }
 }

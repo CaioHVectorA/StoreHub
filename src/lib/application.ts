@@ -1,3 +1,4 @@
+import { AppError } from "../middlewares/appError";
 import type { ApplicationProps } from "../types/application"
 import type { Request } from "../types/request";
 import type { Route, RouterInterface } from "../types/router-type";
@@ -25,5 +26,10 @@ export function app({ request, response }: ApplicationProps, mainRouter: RouterI
     const req = { ...request, params, query: {} } satisfies Request
     const route = mainRouter.routes.find(route => route.pathname == req.pathname && route.method == req.method) || routeFound
     // todo catch route not found error!
-    route?.callback(req, response)
+    try {
+        route?.callback(req, response)
+    } catch (error) {
+        if (error instanceof AppError) return response.status(error.statusCode || 400, error.message)
+        return response.status(500, error.message)
+    }
 }
