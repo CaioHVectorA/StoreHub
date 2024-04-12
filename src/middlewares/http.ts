@@ -5,7 +5,7 @@ import { Router } from "../lib/router";
 import type { ServerResponse } from "../types/response";
 import type { Request } from "../types/request";
 import type { ApplicationProps } from "../types/application";
-import { UserRepository } from "../repositories/user-example";
+import { UserRepository } from "../repositories/user.repository";
 const METHODS_WITHOUT_BODY = ['DELETE', 'GET']
 const router = new Router()
 export const ServerConfig = {
