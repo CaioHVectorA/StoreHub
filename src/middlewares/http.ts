@@ -4,10 +4,14 @@ import { app } from "../lib/application";
 import { Router } from "../lib/router";
 import type { ServerResponse } from "../types/response";
 import type { Request } from "../types/request";
-import type { ApplicationProps } from "../types/application";
 import { UserRepository } from "../repositories/user.repository";
 const METHODS_WITHOUT_BODY = ['DELETE', 'GET']
 const router = new Router()
+router.post('/user', (req, res) => {
+    const body = req.body
+    const response = new UserRepository().create({...body, id: '12'})
+    res.json(response)
+})
 export const ServerConfig = {
     async fetch(request, server) {
         let body = {};
