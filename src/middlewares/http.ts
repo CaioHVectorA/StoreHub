@@ -1,36 +1,28 @@
 import type { Serve } from "bun";
-import type { Methods } from "../types/methods";
 import { app } from "../lib/application";
-import { Router } from "../lib/router";
+import { getRequest } from "../lib/utils/getReq";
+import { getResponse } from "../lib/response";
+import { routes } from "../routes";
 import type { ServerResponse } from "../types/response";
-import type { Request } from "../types/request";
-import { UserRepository } from "../repositories/user.repository";
-const METHODS_WITHOUT_BODY = ['DELETE', 'GET']
-const router = new Router()
-router.post('/user', (req, res) => {
-    const body = req.body
-    const response = new UserRepository().create({...body, id: '12'})
-    res.json(response)
-})
+
+
+
 export const ServerConfig = {
     async fetch(request, server) {
-        let body = {};
         let response: Response = new Response();
-        const cookies = request.headers.get('cookie')
-        if (!METHODS_WITHOUT_BODY.includes(request.method)) body = await request.json()
-        const { pathname } = new URL(request.url)
-        const req = { body, cookies, headers: request.headers, method: request.method as Methods, pathname, url: request.url } satisfies Omit<Omit<Request, 'params'>, 'query'>
+        const req = await getRequest(request)
         const res = { 
             json: (data) => {
                 response = new Response(JSON.stringify(data), { headers: { 'Content-Type': 'application/json' }, status: 200 })
                 return response
             },
             status: (status, json?: any) => {
+                console.log('STATUS: Called')
                 response = new Response(JSON.stringify(json), { status: status })
                 return response
             }
          } satisfies ServerResponse
-        app({ request: req, response: res }, router)
+        await app({ request: req, response: res }, routes)
         return response
     }
 } as Serve

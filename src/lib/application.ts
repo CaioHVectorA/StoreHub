@@ -20,16 +20,26 @@ function getParams(request: Omit<Omit<Request, "params">, "query">, router: Rout
     return { params, route: routeFound }
 }
 
-export function app({ request, response }: ApplicationProps, mainRouter: RouterInterface) {
+export async function app({ request, response }: ApplicationProps, mainRouter: RouterInterface) {
     // implement params, query logic
     let { params, route: routeFound } = getParams(request, mainRouter)
     const req = { ...request, params, query: {} } satisfies Request
     const route = mainRouter.routes.find(route => route.pathname == req.pathname && route.method == req.method) || routeFound
     // todo catch route not found error!
     try {
-        route?.callback(req, response)
+    if (!route) throw new AppError(`Route ${request.pathname} not found`, 404)
+        await route.callback(req, response)
     } catch (error) {
-        if (error instanceof AppError) return response.status(error.statusCode || 400, error.message)
-        return response.status(500, error.message)
+        // console.log({error})
+        if (error instanceof AppError) {
+            return response.status(error.statusCode || 400, {
+            status: "error",
+            message: error.message,
+          })
+        }
+        return response.status(500, {
+            status: "error",
+            message: `Internal server error - ${error.message}`,
+        })
     }
 }

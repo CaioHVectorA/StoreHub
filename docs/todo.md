@@ -2,10 +2,11 @@
 
 ## Database Architecture and Modeling
 
-- [ ] Create the database architecture
-  - [ ] Identify main entities (e.g., Store, Product, Employee)
-  - [ ] Define attributes for each entity
-  - [ ] Establish relationships between entities
+- [X] Create the database architecture
+  - [X] Identify main entities (e.g., Store, Product, Employee)
+  - [X] Define attributes for each entity
+  - [X] Establish relationships between entities
+  - [X] Create types
 
 - [ ] Develop database schema
   - [ ] Create tables for each identified entity

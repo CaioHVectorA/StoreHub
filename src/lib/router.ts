@@ -31,12 +31,14 @@ export class Router implements RouterInterface {
             pathname: pathname
          })
     }
-    public use(handle: RouterInterface | Route) {
+    public use(handle: RouterInterface | Route, pathname?: string) {
         if ((handle as Route).callback) {
             return this.routes.push(handle as Route);
         } 
         return ((routerInterface: RouterInterface) => {
-            this.routes.push(...routerInterface.routes)
+            let routes = routerInterface.routes
+            if (pathname) routes.map((route) => route.pathname = `${pathname}${route.pathname}`)
+            this.routes.push(...routes)
         })(handle as RouterInterface)
     }
 }

@@ -1,7 +1,7 @@
 {
   "name": "bun-testing",
   "module": "index.ts",
-  "type": "module",
+  "type": "commonjs",
   "devDependencies": {
     "@types/bun": "latest"
   },
