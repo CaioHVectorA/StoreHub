@@ -6,10 +6,24 @@
   - [X] Identify main entities (e.g., Store, Product, Employee)
   - [X] Define attributes for each entity
   - [X] Establish relationships between entities
-  - [X] Create types
+  - [\] Create types
+    - [X] User
+    - [ ] Store
+    - [ ] Order-User
+    - [ ] Sales
+    - [ ] Product
+    - [ ] Emplooyes
+    - [ ] Admin
 
 - [X] Develop database schema
-  - [X] Create tables for each identified entity
+  - [\] Create tables for each identified entity
+    - [X] User
+    - [ ] Store
+    - [ ] Order-User
+    - [ ] Sales
+    - [ ] Product
+    - [ ] Emplooyes
+    - [ ] Admin
   - [X] Define data types and constraints for each attribute
   - [ ] Establish primary and foreign keys
 
@@ -23,11 +37,18 @@
     - ???? For production
 
 - [ ] Create RESTful API endpoints
-  - [ ] Endpoint to add a new product to the inventory
-  - [ ] Endpoint to update information of an existing product
-  - [ ] Endpoint to delete a product from the inventory
-  - [ ] Endpoint to view all available products
-  - [ ] Endpoint to search products by name or category
+    - [/] User
+        - [X] Create User 
+        - [X] Login 
+        - [ ] Edit user 
+        - [ ] get User Orders 
+        - [ ] Delete user  
+    - [ ] Store
+    - [ ] Order
+    - [ ] Sales
+    - [ ] Product
+    - [ ] Emplooyes
+    - [ ] Admin
 
 - [ ] Implement business logic
   - [ ] Logic to share inventory between stores
@@ -50,7 +71,15 @@
 ## Testing and Documentation
 
 - [ ] Write automated tests
+  - [x] Setup
   - [ ] Unit tests for backend functions
+    - [/] User
+    - [ ] Store
+    - [ ] Order-User
+    - [ ] Sales
+    - [ ] Product
+    - [ ] Emplooyes
+    - [ ] Admin
   - [ ] Integration tests to verify integration between components
   - [ ] Load tests to evaluate system performance under load
 
