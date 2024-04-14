@@ -3,6 +3,7 @@
   "module": "index.ts",
   "type": "commonjs",
   "devDependencies": {
+    "@faker-js/faker": "^8.4.1",
     "@types/bun": "latest"
   },
   "peerDependencies": {

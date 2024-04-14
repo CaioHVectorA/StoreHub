@@ -7,7 +7,7 @@ export class UserController {
     create: ReqResCallback = async (req, res) => {
         const body = req.body
         const response = await this.service.create(body)
-        return res.json(response)
+        return res.status(201, response)
     }
     login: ReqResCallback = async (req, res) => {
         const body = req.body

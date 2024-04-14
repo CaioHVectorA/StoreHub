@@ -8,9 +8,9 @@
   - [X] Establish relationships between entities
   - [X] Create types
 
-- [ ] Develop database schema
-  - [ ] Create tables for each identified entity
-  - [ ] Define data types and constraints for each attribute
+- [X] Develop database schema
+  - [X] Create tables for each identified entity
+  - [X] Define data types and constraints for each attribute
   - [ ] Establish primary and foreign keys
 
 ## Backend and RESTful API

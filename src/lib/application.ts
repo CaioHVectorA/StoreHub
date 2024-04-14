@@ -30,7 +30,6 @@ export async function app({ request, response }: ApplicationProps, mainRouter: R
     if (!route) throw new AppError(`Route ${request.pathname} not found`, 404)
         await route.callback(req, response)
     } catch (error) {
-        // console.log({error})
         if (error instanceof AppError) {
             return response.status(error.statusCode || 400, {
             status: "error",

@@ -2,7 +2,7 @@ import type { Methods } from "./methods"
 import type { Request } from "./request"
 import type { ServerResponse } from "./response"
 //todo: improve type (receive request and returns an mounted response)
-export type ReqResCallback = ((request: Request, response: ServerResponse) => Promise<any>)
+export type ReqResCallback = ((request: Request, response: ServerResponse) => Promise<any> | any)
 export type Route = {
     callback: ReqResCallback,
     method: Methods
