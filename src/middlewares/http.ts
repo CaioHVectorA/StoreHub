@@ -1,7 +1,6 @@
 import type { Serve } from "bun";
 import { app } from "../lib/application";
 import { getRequest } from "../lib/utils/getReq";
-import { getResponse } from "../lib/response";
 import { routes } from "../routes";
 import type { ServerResponse } from "../types/response";
 
@@ -17,8 +16,11 @@ export const ServerConfig = {
                 return response
             },
             status: (status, json?: any) => {
-                console.log('STATUS: Called')
                 response = new Response(JSON.stringify(json), { status: status })
+                return response
+            },
+            file: (file) => {
+                response = new Response(file)
                 return response
             }
          } satisfies ServerResponse

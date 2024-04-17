@@ -27,7 +27,15 @@ export async function app({ request, response }: ApplicationProps, mainRouter: R
     const route = mainRouter.routes.find(route => route.pathname == req.pathname && route.method == req.method) || routeFound
     // todo catch route not found error!
     try {
-    if (!route) throw new AppError(`Route ${request.pathname} not found`, 404)
+        if (!route) {
+            const file = Bun.file(`${process.cwd()}/public/${request.pathname}`)
+            const exists = await file.exists()
+            console.log(exists)
+            if (exists) {
+                return response.file(file)
+            }
+            throw new AppError(`Route ${request.pathname} not found`, 404)
+        } 
         await route.callback(req, response)
     } catch (error) {
         if (error instanceof AppError) {

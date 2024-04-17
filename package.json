@@ -4,7 +4,8 @@
   "type": "commonjs",
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "bun-types": "^1.1.4"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
