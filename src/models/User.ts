@@ -28,4 +28,4 @@ export const USER_TABLE = (`CREATE TABLE IF NOT EXISTS users (
     CEP      VARCHAR(9) NULL,
     password VARCHAR(100) NOT NULL,
     picture  TEXT NULL
-  );`)
+  );`) as string
