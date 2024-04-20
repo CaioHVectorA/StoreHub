@@ -1,5 +1,5 @@
-import type { Methods } from "../../types/methods";
-import type { Request as ServerRequest } from "../../types/request";
+import type { Methods } from "@/types/methods";
+import type { Request as ServerRequest } from "@/types/request";
 
 const METHODS_WITHOUT_BODY = ['DELETE', 'GET']
 

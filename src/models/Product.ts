@@ -23,7 +23,7 @@ export const PRODUCT_TABLE = (`CREATE TABLE IF NOT EXISTS products (
     images         TEXT NULL,
     price          DECIMAL(10, 2) NULL,
     category_id    VARCHAR(36) NOT NULL,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT FK_category_TO_product FOREIGN KEY (category_id) REFERENCES category(id)
 );`)

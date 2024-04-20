@@ -3,6 +3,7 @@ export type UserInput = {
     email: string;
     CPF: string;
     password: string;
+    CEP: string;
 }
 
 export type User = {
@@ -10,9 +11,10 @@ export type User = {
     username: string;
     email: string;
     CPF: string;
-    CEP?: string;
+    CEP: string;
     password: string;
     picture?: string;
+    created_at: string | Date;
 }
 
 export type UserLoginNeeded = {
@@ -25,7 +27,8 @@ export const USER_TABLE = (`CREATE TABLE IF NOT EXISTS users (
     username VARCHAR(100) NOT NULL,
     email    VARCHAR(255) NOT NULL,
     CPF      VARCHAR(14) NOT NULL,
-    CEP      VARCHAR(9) NULL,
+    CEP      VARCHAR(9) NOT NULL,
     password VARCHAR(100) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     picture  TEXT NULL
   );`) as string

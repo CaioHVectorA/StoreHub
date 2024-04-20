@@ -1,4 +1,4 @@
-import type { RouterInterface, Route, ReqResCallback } from "../types/router-type"
+import type { RouterInterface, Route, ReqResCallback } from "@/types/router-type"
 
 export class Router implements RouterInterface {
     routes: Route[] = []

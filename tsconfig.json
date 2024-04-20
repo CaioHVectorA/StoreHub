@@ -8,7 +8,11 @@
     "jsx": "react-jsx",
     "allowJs": true,
     "useUnknownInCatchVariables": false,
-    
+    // Path configuration
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
     // Bundler mode
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
