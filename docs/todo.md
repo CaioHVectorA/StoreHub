@@ -6,24 +6,24 @@
   - [X] Identify main entities (e.g., Store, Product, Employee)
   - [X] Define attributes for each entity
   - [X] Establish relationships between entities
-  - [\] Create types
+  - [X] Create types
     - [X] User
-    - [ ] Store
-    - [ ] Order-User
-    - [ ] Sales
-    - [ ] Product
-    - [ ] Emplooyes
-    - [ ] Admin
+    - [X] Store
+    - [X] Order-User
+    - [\] Sales
+    - [X] Product
+    - [X] Emplooyes
+    - [X] Admin
 
 - [X] Develop database schema
   - [\] Create tables for each identified entity
     - [X] User
-    - [ ] Store
-    - [ ] Order-User
-    - [ ] Sales
-    - [ ] Product
-    - [ ] Emplooyes
-    - [ ] Admin
+    - [X] Store
+    - [X] Order-User
+    - [\] Sales
+    - [X] Product
+    - [X] Emplooyes
+    - [X] Admin
   - [X] Define data types and constraints for each attribute
   - [ ] Establish primary and foreign keys
 

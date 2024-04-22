@@ -1,4 +1,4 @@
-import { unlinkSync } from 'node:fs'
+import { unlinkSync, existsSync } from 'node:fs'
 import { Database } from 'bun:sqlite'
 import { USER_TABLE } from '../models/user'
 import { ORDER_TABLE, PRODUCT_ORDER_TABLE } from '../models/order'
@@ -11,8 +11,8 @@ const TABLES = [USER_TABLE, ORDER_TABLE, PRODUCT_ORDER_TABLE, PRODUCT_TABLE, STO
 export class Repository {
     db = (() => {
         const testEnv = Bun.env.NODE_ENV == 'test'
-        if (testEnv) unlinkSync(process.cwd() + '/test.sqlite')
-        const database = new Database(testEnv ? './test.sqlite' : './dev.sqlite');
+        // if (testEnv && existsSync(process.cwd()+'/_test.sqlite')) unlinkSync(process.cwd() + '/_test.sqlite')
+        const database = new Database(testEnv ? './_test.sqlite' : './dev.sqlite');
         // database.run(USER_TABLE)
         TABLES.forEach((i) => database.run(i))
         return database

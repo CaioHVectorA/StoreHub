@@ -1,6 +1,6 @@
 export const ADMIN_TABLE = `
-    CREATE TABLE IF NOT EXISTS admin (
-        id VARCHAR(255) NOT NULL,
+    CREATE TABLE IF NOT EXISTS admins (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
         name VARCHAR(255) NOT NULL,
         password VARCHAR(255) NOT NULL,
         email VARCHAR(255),
@@ -8,12 +8,11 @@ export const ADMIN_TABLE = `
         cpf VARCHAR(255),
         salary INT,
         phone VARCHAR(255),
-        created_at VARCHAR(255),
+        created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
         termination_date TIMESTAMP NULL,
         active BOOLEAN,
         is_manager BOOLEAN,
-        details VARCHAR(255),
-        PRIMARY KEY (id)
+        details VARCHAR(255)
     );
 `;
 export type Admin = {

@@ -1,0 +1,1 @@
+UPDATE stores SET manager_id = 5;

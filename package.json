@@ -2,6 +2,12 @@
   "name": "bun-testing",
   "module": "index.ts",
   "type": "commonjs",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "bun --watch src/index.ts",
+    "start": "bun build src --target=bun --outdir=dist && bun dist/src/index.js",
+    "build": "bun build src --target=bun --outdir=dist"
+  },
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
     "@types/bun": "latest",

@@ -1,10 +1,6 @@
 import { expect, test, it, beforeAll, describe, afterAll,  } from 'bun:test'
-import { routes } from '@/routes'
-import { ServerConfig } from '@/middlewares/http'
 import { request } from '../../utils/request'
 import { getUser } from '../../utils/generateUser'
-import type { User } from '@/models/user'
-import { type Server } from 'bun'
 describe("User routes", async () => {
     const user = getUser()
     let userId = '';
@@ -23,14 +19,15 @@ describe("User routes", async () => {
         expect(response.status).toBe(200)
     })
     test("Should edit some user info", async () => {
-        const response = await request.put(`/user/${userId}`, { name: 'New Name' })
+        const response = await request.put(`/user/${userId}`, { username: 'New Name' })
+        console.log({response})
         expect(response.status).toBe(200)
     })
     test("Should get user protected infos by ID", async () => {
         const response = await request.get(`/user/infos/${userId}`)
         expect(response.status).toBe(200)
-        expect(response.data).toHaveProperty('id')
-        expect(response.data).toHaveProperty('name')
+        console.log({ response })
+        expect(response.data).toHaveProperty('username')
         expect(response.data).toHaveProperty('CPF')
         expect(response.data).not.toHaveProperty('password')
     })

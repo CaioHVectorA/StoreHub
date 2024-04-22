@@ -1,3 +1,4 @@
+import * as fs from 'node:fs'
 import { unlink } from 'node:fs/promises'
 import { afterAll, beforeAll, describe, test, expect } from 'bun:test'
 import { ServerConfig } from '@/middlewares/http'
@@ -21,10 +22,14 @@ const insertInventory = `
 INSERT INTO inventories (location) VALUES ($location)
 `
 const insertAdmin = `
-INSERT INTO admin (id, name, password, email, store_id, cpf, salary, phone, created_at, termination_date, active, is_manager, details)
+INSERT INTO admins (id, name, password, email, store_id, cpf, salary, phone, created_at, termination_date, active, is_manager, details) 
+VALUES ($id, $name, $password, $email, $store_id, $cpf, $salary, $phone, $created_at, $termination_date, $active, $is_manager, $details)
 `
 beforeAll(() => {
-    const testDb = new Database('test.sqlite')
+    if (fs.existsSync('_test.sqlite')) {
+        fs.unlinkSync('_test.sqlite')
+    }
+    const testDb = new Database('_test.sqlite')
     const productInsert = testDb.prepare(insertProducts);
     const storeInsert = testDb.prepare(insertStore);
     const inventoryInsert = testDb.prepare(insertInventory)
@@ -45,9 +50,9 @@ beforeAll(() => {
         return admins.length
     })
     productTransaction(Array.from({ length: 300 }, (_, i) => translateToDbFields(generateProduct(i))))  
-    inventoryTransaction(Array.from({ length: 30 }, (_, i) => ({ $location: faker.location.city() })))
+    inventoryTransaction(Array.from({ length: 31 }, (_, i) => ({ $location: faker.location.city() })))
     storeTransaction(Array.from({ length: 30 }, (_, i) => (translateToDbFields(generateStore(i)))))
-    adminTransaction(Array.from({ length: 30 }, (_, i) => (translateToDbFields(generateAdmin(i)))))
+    adminTransaction(Array.from({ length: 31 }, (_, i) => (translateToDbFields(generateAdmin(i)))))
     
     Bun.serve({ ...ServerConfig })
 })

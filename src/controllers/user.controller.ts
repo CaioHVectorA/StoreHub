@@ -36,4 +36,9 @@ export class UserController {
         const response = await this.service.getOrders(id)
         return res.json(response)
     };
+    getAllUsers: ReqResCallback = async (req, res) => {
+        const limit = req.query.limit
+        const response = await this.service.getAllUsers(Number(limit))
+        return res.json(response)
+    }
 }

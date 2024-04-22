@@ -3,7 +3,7 @@ import { generateCPF } from "./generateCPF";
 
 export function generateAdmin(i: number) {
     return {
-        id: crypto.randomUUID(),
+        // id: crypto.randomUUID(), ACTUAL USING INDEX
         name: faker.person.fullName(),
         password: faker.internet.password(),
         email: faker.internet.email(),

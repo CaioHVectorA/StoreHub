@@ -62,8 +62,14 @@ export async function app({ request, response }: ApplicationProps, mainRouter: R
                 return response.file(file)
             }
             throw new AppError(`Route ${request.pathname} not found`, 404)
-        } 
-        await route.callback(req, response)
+        }
+
+        for (const callback of route.callback) {
+            const result = await callback(req, response)
+            if (result) {
+                return result
+            }
+        }
     } catch (error) {
         if (error instanceof AppError) {
             return response.status(error.statusCode || 400, {

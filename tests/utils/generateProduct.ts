@@ -11,7 +11,20 @@ export function generateProduct(index: number) {
         title: faker.commerce.productName(),
         description: faker.commerce.productDescription(),
         inventory_id: index,
-        price: faker.commerce.price(),
+        price: faker.commerce.department(),
         brand: 'Brandless'
+    }
+}
+
+export function generateProductInput() {
+    return {
+        barcode: crypto.randomUUID().replaceAll('-',''),
+        category_id: 'Testing',
+        title: faker.commerce.productName(),
+        description: faker.commerce.productDescription(),
+        inventory_id: 301,
+        price: faker.commerce.price(),
+        brand: faker.commerce.department(),
+        images: '[]'
     }
 }

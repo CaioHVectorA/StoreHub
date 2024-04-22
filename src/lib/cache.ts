@@ -28,7 +28,9 @@ export class Cache {
     clear() {
         this.cache.clear();
     }
-
+    toJSON() {
+        return Object.fromEntries(this.cache);
+    }
     has(key: string) {
         return this.cache.has(key);
     }

@@ -21,7 +21,7 @@ export class UserRepository extends Repository {
         return userFound
     }
     getUserInfos(id: string) {
-        const user = this.db.query(`SELECT email, CPF, CEP, picture, created_at FROM users WHERE id = ?1;`).get(id)
+        const user = this.db.query(`SELECT email, CPF, CEP, picture, created_at, username FROM users WHERE id = ?1;`).get(id)
         if (!user) throw new AppError('Usuário inexistente!', 404)
         return user
     }
@@ -55,5 +55,11 @@ export class UserRepository extends Repository {
         console.log(id)
         del.run(id)
         return true
+    }
+    getAllUsers(limit = 10) {
+        return this.db.query(`
+        SELECT id, username, email, CPF, CEP, picture, created_at FROM users;
+        LIMIT ?1;
+        `).all(limit)
     }
 }

@@ -15,22 +15,24 @@ export class UserService {
         const { id, password: passwordInDatabase } = await this.repo.login(data)
         const rightPass = await Bun.password.verify(data.password, passwordInDatabase)
         if (!rightPass) throw new AppError('Senha incorreta!', 401)
-        return await this.repo.getUserInfos(id)
+        return this.repo.getUserInfos(id)
     }
     async getUserInfos(id: string) {
-        return await this.repo.getUserInfos(id)
+        return this.repo.getUserInfos(id)
     }
     async edit(data: { id: string, email?: string, username?: string, password?: string, picture?: string}) {
         if (!data.id) throw new AppError('ID não informado!', 400)
         if (!data.email && !data.username && !data.password && !data.picture) throw new AppError('Ausência de credenciais!', 400)
-        return await this.repo.edit(data)
+        return this.repo.edit(data)
     }
     async getOrders(id: string) {
         console.log('AAAAA')
-        return await this.repo.getOrders(id)
+        return this.repo.getOrders(id)
     }
     async delete(id: string) {
-        return await this.repo.delete(id)
+        return this.repo.delete(id)
     }
-    async get() {}
+    async getAllUsers(limit = 10) {
+        return this.repo.getAllUsers(limit)
+    }
 }

@@ -1,8 +1,7 @@
 # Based on https://raw.githubusercontent.com/github/gitignore/main/Node.gitignore
-dev.sqlite
-test.sqlite
+*.sqlite
 # Logs
-
+output.json
 logs
 _.log
 npm-debug.log_
