@@ -11,7 +11,8 @@
     // Path configuration
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "@consts/*": ["src/lib/utils/consts/*"],
     },
     // Bundler mode
     "moduleResolution": "bundler",

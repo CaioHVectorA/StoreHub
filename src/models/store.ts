@@ -12,7 +12,7 @@ export type Store = {
 export type StoreInput = Omit<Store, 'id' | 'created_at' | 'disabled_at' | 'active_status' | 'is_open'>;
 export const STORE_TABLE = `CREATE TABLE IF NOT EXISTS stores (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name VARCHAR(255),
+    name VARCHAR(255) UNIQUE NOT NULL,
     location VARCHAR(255),
     manager_id VARCHAR(255),
     inventory_id INTEGER,

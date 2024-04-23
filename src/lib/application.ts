@@ -34,6 +34,7 @@ function getParams(request: Omit<Omit<Request, "params">, "query">, router: Rout
             if (!splittedRoute[x][y].includes(':') && splittedRoute[x][y] != splittedPathname[y]) break
             if (splittedRoute[x][y] == splittedPathname[y]) {
                 if (y == splittedRoute[x].length - 1) {
+                    console.log({ route })
                     route = router.routes[x]
                 }
                 continue
@@ -41,6 +42,7 @@ function getParams(request: Omit<Omit<Request, "params">, "query">, router: Rout
             const key = splittedRoute[x][y].slice(1)
             params[key] = splittedPathname[y]
             if (y == splittedRoute[x].length - 1) {
+                console.log({y, route: splittedRoute[x].length - 1}, splittedRoute[x], request.pathname.split('/').filter(Boolean))
                 route = router.routes.filter(route => route.method == request.method)[x]
             }
         }

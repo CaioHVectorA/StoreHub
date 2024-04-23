@@ -1,11 +1,9 @@
-import * as fs from 'node:fs'
-import { unlink } from 'node:fs/promises'
+import * as fs from 'fs'
 import { afterAll, beforeAll, describe, test, expect } from 'bun:test'
 import { ServerConfig } from '@/middlewares/http'
-import { request } from './utils/request'
-import { $ } from 'bun'
-import { Database } from 'bun:sqlite'
-import type { Product } from '@/models/product'
+import { $, type Server } from 'bun'
+import { Database, Statement } from 'bun:sqlite'
+import { SQLITE_TEST_DB_NAME } from '@consts/SQLITE_TEST_DB_NAME'
 import { generateProduct } from './utils/generateProduct'
 import { translateToDbFields } from '@/lib/utils/translateToDbFields'
 import { fakerPT_BR as faker } from '@faker-js/faker'
@@ -25,14 +23,13 @@ const insertAdmin = `
 INSERT INTO admins (id, name, password, email, store_id, cpf, salary, phone, created_at, termination_date, active, is_manager, details) 
 VALUES ($id, $name, $password, $email, $store_id, $cpf, $salary, $phone, $created_at, $termination_date, $active, $is_manager, $details)
 `
+let server: Server | null = null;
+let testDb = new Database(SQLITE_TEST_DB_NAME);
+const productInsert = testDb.prepare(insertProducts);
+const storeInsert = testDb.prepare(insertStore);
+const inventoryInsert = testDb.prepare(insertInventory)
+const adminInsert = testDb.prepare(insertAdmin)
 beforeAll(() => {
-    if (fs.existsSync('_test.sqlite')) {
-        fs.unlinkSync('_test.sqlite')
-    }
-    const testDb = new Database('_test.sqlite')
-    const productInsert = testDb.prepare(insertProducts);
-    const storeInsert = testDb.prepare(insertStore);
-    const inventoryInsert = testDb.prepare(insertInventory)
     const productTransaction = testDb.transaction((products) => {
         for (const product of products) productInsert.run(product)
         return products.length
@@ -46,7 +43,7 @@ beforeAll(() => {
         return inventories.length
     })
     const adminTransaction = testDb.transaction((admins) => {
-        for (const admin of admins) testDb.prepare(insertAdmin).run(admin)
+        for (const admin of admins) adminInsert.run(admin)
         return admins.length
     })
     productTransaction(Array.from({ length: 300 }, (_, i) => translateToDbFields(generateProduct(i))))  
@@ -54,8 +51,16 @@ beforeAll(() => {
     storeTransaction(Array.from({ length: 30 }, (_, i) => (translateToDbFields(generateStore(i)))))
     adminTransaction(Array.from({ length: 31 }, (_, i) => (translateToDbFields(generateAdmin(i)))))
     
-    Bun.serve({ ...ServerConfig })
+    server = Bun.serve({ ...ServerConfig })
 })
 afterAll(async () => {
-   
+    if (server) server.stop(true);
+    testDb.exec(`
+    DROP TABLE IF EXISTS products;
+    DROP TABLE IF EXISTS stores;
+    DROP TABLE IF EXISTS inventories;
+    DROP TABLE IF EXISTS admins;
+`);
+    if (testDb) testDb.close();
+    [productInsert, storeInsert, inventoryInsert, adminInsert].forEach((i: Statement) => i.finalize())
 })

@@ -11,6 +11,7 @@ export class StoreController {
     }
     get: ReqResCallback = async (req, res) => {
         const id = req.params.id;
+        console.log('CALLED')
         const response = await this.service.get(Number(id));
         return res.json(response);
     }

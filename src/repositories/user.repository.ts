@@ -34,7 +34,6 @@ export class UserRepository extends Repository {
         if (password) updateQuery += " password = $password,"
         if (picture) updateQuery += " picture = $picture," 
         updateQuery = updateQuery.slice(0, -1) + " WHERE id = $id;"
-        console.log(updateQuery.toString())
         const update = this.db.prepare(updateQuery)
         const updateParams: any = {};
         if (email) updateParams.email = email;

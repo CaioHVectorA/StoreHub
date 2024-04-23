@@ -20,13 +20,11 @@ describe("User routes", async () => {
     })
     test("Should edit some user info", async () => {
         const response = await request.put(`/user/${userId}`, { username: 'New Name' })
-        console.log({response})
         expect(response.status).toBe(200)
     })
     test("Should get user protected infos by ID", async () => {
         const response = await request.get(`/user/infos/${userId}`)
         expect(response.status).toBe(200)
-        console.log({ response })
         expect(response.data).toHaveProperty('username')
         expect(response.data).toHaveProperty('CPF')
         expect(response.data).not.toHaveProperty('password')

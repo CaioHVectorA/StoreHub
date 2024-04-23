@@ -34,7 +34,6 @@ VALUES ($id, $name, $password, $email, $store_id, $cpf, $salary, $phone, $create
 `
 const TABLES = [USER_TABLE, ORDER_TABLE, PRODUCT_ORDER_TABLE, PRODUCT_TABLE, STORE_TABLE, EMPLOOYES_TABLE, ADMIN_TABLE, INVENTORY_TABLE]
 const terminalParams = process.argv.slice(2);
-console.log(terminalParams);
 let input = null;
 if (terminalParams[0]) input = terminalParams[0].replace('--', '');
 if (input) {

@@ -1,0 +1,1 @@
+export const SQLITE_TEST_DB_NAME = '_test.sqlite'
