@@ -1,5 +1,5 @@
 export type Product = {
-    id: string,
+    id: number,
     inventory_id: number,
     images: string,
     barcode: string,
@@ -12,9 +12,9 @@ export type Product = {
     category_id: string,
 }
 
-
+export type ProductInput = Omit<Product, 'id' | 'created_at' | 'updated_at'>;
 export const PRODUCT_TABLE = (`CREATE TABLE IF NOT EXISTS products (
-    id             VARCHAR(36) NOT NULL PRIMARY KEY,
+    id             INTEGER PRIMARY KEY AUTOINCREMENT,
     title          TEXT,
     description    TEXT,
     barcode        TEXT,

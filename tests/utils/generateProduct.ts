@@ -1,12 +1,10 @@
+import { generateBarcodeData } from "@/lib/barcode"
 import type { Product } from "@/models/product"
 import { faker } from '@faker-js/faker'
 export function generateProduct(index: number) {
     return {
-        barcode: crypto.randomUUID().replaceAll('-',''),
+        barcode: generateBarcodeData(),
         category_id: 'Testing',
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-        id: crypto.randomUUID(),
         images: '[]',
         title: faker.commerce.productName(),
         description: faker.commerce.productDescription(),
@@ -18,7 +16,7 @@ export function generateProduct(index: number) {
 
 export function generateProductInput() {
     return {
-        barcode: crypto.randomUUID().replaceAll('-',''),
+        barcode: generateBarcodeData(),
         category_id: 'Testing',
         title: faker.commerce.productName(),
         description: faker.commerce.productDescription(),

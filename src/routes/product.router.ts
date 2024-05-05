@@ -1,0 +1,16 @@
+import { ProductController } from "@/controllers/product.controller";
+import { Router } from "@/lib/router";
+const controller = new ProductController()
+export const productRoutes = new Router()
+productRoutes.post('/', controller.create)
+productRoutes.get('/:id', controller.getById)
+productRoutes.get('/barcode-search/:barcode', controller.getByBarcode)
+productRoutes.get('/barcode/:id', controller.getBarcode)
+productRoutes.put('/:id', controller.edit)
+productRoutes.get('/inventory/:inventory_id', controller.getByInventory)
+productRoutes.get('/recent-edited', controller.getRecentEdited)
+productRoutes.get('/price', controller.getCheaper)
+productRoutes.get('/price', controller.getExpensive)
+productRoutes.get('/brand/:brand', controller.getByBrand)
+productRoutes.get('/search', controller.search)
+productRoutes.del('/:id', controller.delete)
