@@ -116,7 +116,7 @@ web_modules/
 out
 Api StoreHub
 *.ignore.ts
-
+public/*
 # Nuxt.js build / generate output
 
 .nuxt

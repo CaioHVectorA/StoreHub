@@ -59,4 +59,8 @@ export class ProductService {
         const res = await this.db.deleteProduct(id)
         return res
     }
+    async getProducts(limit: number, index: number) {
+        const res = await this.db.getProducts({ limit, index })
+        return res
+    }
 }

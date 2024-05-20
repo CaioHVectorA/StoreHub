@@ -8,6 +8,9 @@ export class ProductRepository extends Repository {
     constructor() {
         super();
     }
+    async getProducts({ limit, index }: { limit: number, index: number }): Promise<Product[]> {
+        return this.db.query("SELECT * FROM products LIMIT ?1 OFFSET ?2;").all(limit, index) as Product[]
+    }
     async createProduct(data: Omit<Product, 'id' | 'created_at' | 'updated_at'>) {
         const alreadyExists = this.db.query("SELECT id from products WHERE barcode = ?1;").get(data.barcode)
         if (alreadyExists) throw new AppError('Produto já existe no sistema!')

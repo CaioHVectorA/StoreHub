@@ -2,7 +2,6 @@ import { AppError } from "../middlewares/appError";
 import type { ApplicationProps } from "../types/application"
 import type { Request } from "../types/request";
 import type { Route, RouterInterface } from "../types/router-type";
-
 // function getParams(request: Omit<Omit<Request, "params">, "query">, router: RouterInterface): { params: { [key: string]: string }, route?: Route } {
 //     let params = {} satisfies { [key: string]: string }
 //     const filtered = router.routes.filter((route) => route.pathname.includes(':') && route.method == request.method)
@@ -51,6 +50,17 @@ export async function app({ request, response }: ApplicationProps, mainRouter: R
     // implement params, query logic
     let { params, route: routeFound } = getParams(request, mainRouter)
     const req = { ...request, params, query: {} } satisfies Request
+    const queries = Object.fromEntries(new URLSearchParams(request.url))
+    const baseUrl = Object.keys(queries)[0].split('?')[0]; // "http://localhost:3000/product/get"
+    req.query = (() => {
+        let query = {}
+        for (const key in queries) {
+            //@ts-ignore
+            query[key.replace(baseUrl, '').replace('?', '')] = queries[key]
+        }
+        return query
+    })()
+    console.log(req.query)
     const route = mainRouter.routes.find(route => route.pathname == req.pathname && route.method == req.method) || routeFound
     // todo catch route not found error!
     try {

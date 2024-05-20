@@ -13,6 +13,14 @@ export class ProductController {
         const response = await this.service.getProductById(Number(id))
         res.status(200, response)
     }
+    get: ReqResCallback = async (req, res) => {
+        const { limit, index } = req.query
+        console.log(req.query)
+        console.log(limit, index)
+        const response = await this.service.getProducts(Number(limit) || 30, Number(index) || 0)
+        console.log(response.length)
+        res.status(200, response)
+    }
     getByBarcode: ReqResCallback = async (req, res) => {
         const barcode = req.params.barcode
         const response = await this.service.getProductByBarcode(barcode)
