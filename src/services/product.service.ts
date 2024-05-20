@@ -9,8 +9,8 @@ export class ProductService {
     async createProduct(data: Omit<Product, 'id' | 'created_at' | 'updated_at' | 'barcode'>) {
         const barcode = generateBarcodeData()
         await storeBarcode(barcode)
-        const res = await this.db.createProduct({ ...data, barcode })
-        return res
+        const { id } = await this.db.createProduct({ ...data, barcode })
+        return { id, barcode }
     }
     async getProductById(id: number) {
         const res = await this.db.getProductById(id)

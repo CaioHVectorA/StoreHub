@@ -9,6 +9,13 @@ import { translateToDbFields } from '@/lib/utils/translateToDbFields'
 import { fakerPT_BR as faker } from '@faker-js/faker'
 import { generateStore } from './utils/generateStore'
 import { generateAdmin } from './utils/generateAdmin'
+import { ADMIN_TABLE } from '@/models/admin'
+import { EMPLOOYES_TABLE } from '@/models/emplooyes'
+import { INVENTORY_TABLE } from '@/models/inventory'
+import { ORDER_TABLE, PRODUCT_ORDER_TABLE } from '@/models/order'
+import { PRODUCT_TABLE } from '@/models/product'
+import { STORE_TABLE } from '@/models/store'
+import { USER_TABLE } from '@/models/user'
 const insertProducts = `
 INSERT INTO products (id, barcode, inventory_id, images, price, category_id, created_at, updated_at, title, description, brand) 
 VALUES ($id, $barcode, $inventory_id, $images, $price, $category_id, $created_at, $updated_at, $title, $description, $brand)
@@ -25,11 +32,19 @@ VALUES ($id, $name, $password, $email, $store_id, $cpf, $salary, $phone, $create
 `
 let server: Server | null = null;
 let testDb = new Database(SQLITE_TEST_DB_NAME);
+const deleteTables = () => testDb.exec(`
+DROP TABLE IF EXISTS products;
+DROP TABLE IF EXISTS stores;
+DROP TABLE IF EXISTS inventories;
+DROP TABLE IF EXISTS admins;
+`)
 const productInsert = testDb.prepare(insertProducts);
 const storeInsert = testDb.prepare(insertStore);
 const inventoryInsert = testDb.prepare(insertInventory)
 const adminInsert = testDb.prepare(insertAdmin)
 beforeAll(() => {
+    deleteTables();
+    [USER_TABLE, ORDER_TABLE, PRODUCT_ORDER_TABLE, PRODUCT_TABLE, STORE_TABLE, EMPLOOYES_TABLE, ADMIN_TABLE, INVENTORY_TABLE].forEach((s) => testDb.run(s))
     const productTransaction = testDb.transaction((products) => {
         for (const product of products) productInsert.run(product)
         return products.length
@@ -55,12 +70,7 @@ beforeAll(() => {
 })
 afterAll(async () => {
     if (server) server.stop(true);
-    testDb.exec(`
-    DROP TABLE IF EXISTS products;
-    DROP TABLE IF EXISTS stores;
-    DROP TABLE IF EXISTS inventories;
-    DROP TABLE IF EXISTS admins;
-`);
+    deleteTables()
     if (testDb) testDb.close();
     [productInsert, storeInsert, inventoryInsert, adminInsert].forEach((i: Statement) => i.finalize())
 })

@@ -11,10 +11,9 @@ export class ProductRepository extends Repository {
     async createProduct(data: Omit<Product, 'id' | 'created_at' | 'updated_at'>) {
         const alreadyExists = this.db.query("SELECT id from products WHERE barcode = ?1;").get(data.barcode)
         if (alreadyExists) throw new AppError('Produto já existe no sistema!')
-        console.log({ data })
         const insert = this.db.prepare(`INSERT INTO products (barcode, title, description, inventory_id, price, brand, images, category_id) VALUES ($barcode, $title, $description, $inventory_id, $price, $brand, $images, $category_id);`)
         insert.run(translateToDbFields(data))
-        return "Produto criado com sucesso!"
+        return this.db.prepare(`SELECT last_insert_rowid() as id;`).get() as { id: string }
     }
     async getProductById(id: number) {
         const product = this.db.query(`SELECT * FROM products WHERE id = ?1;`).get(id)
@@ -27,9 +26,10 @@ export class ProductRepository extends Repository {
         return product
     }
     async getBarcode(id: number) {
-        const barcode = this.db.query(`SELECT barcode FROM products WHERE id = ?1;`).get(id) as string
+        //@ts-ignore
+        const { barcode } = (this.db.query(`SELECT barcode FROM products WHERE id = ?1;`).get(id))
         if (!barcode) throw new AppError('Produto inexistente!', 404)
-        return barcode
+        return barcode as string
     }
     async editProduct(id: number, data: Partial<Product>) {
         let updateQuery = "UPDATE products SET"
@@ -64,7 +64,6 @@ export class ProductRepository extends Repository {
     async deleteProduct(id: number) {
         const del = this.db.prepare("DELETE FROM products WHERE id = ?1;")
         del.run(id)
-        console.log(del.toString())
         return true
     }
 }

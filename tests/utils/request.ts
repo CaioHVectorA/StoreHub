@@ -10,6 +10,7 @@ interface FetchResponse<T> {
   
   interface FetchRequestConfig {
     headers?: Record<string, string>;
+    isFile?: boolean;
   }
   class FetchInstance {
     private baseUrl: string;
@@ -27,7 +28,12 @@ interface FetchResponse<T> {
         },
         body: data ? JSON.stringify(data) : undefined
       });
-      const responseData = await response.json();
+      let responseData;
+      if (options?.isFile) {
+        responseData = await response.blob();
+      } else {
+        responseData = await response.json();
+      }
       return {
         data: responseData,
         status: response.status,

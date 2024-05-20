@@ -26,7 +26,6 @@ export class UserService {
         return this.repo.edit(data)
     }
     async getOrders(id: string) {
-        console.log('AAAAA')
         return this.repo.getOrders(id)
     }
     async delete(id: string) {

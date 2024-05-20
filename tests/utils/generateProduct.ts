@@ -1,6 +1,6 @@
 import { generateBarcodeData } from "@/lib/barcode"
 import type { Product } from "@/models/product"
-import { faker } from '@faker-js/faker'
+import { fakerPT_BR as faker } from '@faker-js/faker'
 export function generateProduct(index: number) {
     return {
         barcode: generateBarcodeData(),

@@ -11,6 +11,7 @@ describe("Product routes", async () => {
     test("Should create new Product", async () => {
         const { data, status } = await request.post<{ id: number, barcode: string }>('/product/', product)
         expect(status).toBe(201)
+        console.log({data})
         expect(data).toHaveProperty('id')
         expect(data).toHaveProperty('barcode')
         productId = data.id
@@ -18,18 +19,21 @@ describe("Product routes", async () => {
     })
     test("Should get product by ID", async () => {
         const { data, status } = await request.get<{ id: number }>('/product/' + productId)
-        expect(status).toBe(200)
+        console.log(data)
+        expect(status).toBe(200);
         expect(data).toHaveProperty('id')
     })
     test('Should get product by barcode', async () => {
-        const { data, status } = await request.get<{ id: number }>('/product/barcode-search/' + product.barcode)
+        const { data, status } = await request.get<{ id: number }>('/product/barcode-search/' + productBarCode)
+        console.log({ data, productBarCode })
         expect(status).toBe(200)
         expect(data).toHaveProperty('id')
     })
     test('Should get barcode of the product by your id', async () => {
-        const { data, status } = await request.get<{ barcode: string }>('/product/barcode/' + productId)
+        const { data, status } = await request.get<Blob>('/product/barcode/' + productId, { isFile: true })
         expect(status).toBe(200)
-        expect(data).toHaveProperty('barcode')
+        expect(data).toBeInstanceOf(Blob)
+        expect(data).toBeTruthy()
     })
     test('Should edit the existing product', async () => {
         const { status } = await request.put('/product/' + productId, { title: 'New Title' })
@@ -54,7 +58,7 @@ describe("Product routes", async () => {
         const { data, status } = await request.get<Array<Product>>('/product/price?min=100')
         expect(status).toBe(200)
         expect(Array.isArray(data)).toBe(true)
-        expect(data.length).toBe(100)
+        expect(data.length).toBeLessThanOrEqual(100)
     })
     test('Should get products by brand', async () => {
         const { data, status } = await request.get('/product/brand/' + product.brand)

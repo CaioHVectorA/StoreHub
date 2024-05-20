@@ -25,7 +25,6 @@ describe("Store routes", async () => {
     })
     test("Should get store products by ID", async () => {
         const { data, status } = await request.get('/store/products/' + storeId)
-        console.log({ data, storeId })
         expect(status).toBe(200)
         expect(Array.isArray(data)).toBe(true)
     })

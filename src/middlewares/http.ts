@@ -21,6 +21,7 @@ export const ServerConfig = {
             },
             file: (file) => {
                 response = new Response(file)
+                response.headers.set('Content-Type', file.type)
                 return response
             }
          } satisfies ServerResponse

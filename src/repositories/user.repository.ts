@@ -51,7 +51,6 @@ export class UserRepository extends Repository {
     }
     delete(id: string): boolean {
         const del = this.db.prepare("DELETE FROM users WHERE id = ?1;")
-        console.log(id)
         del.run(id)
         return true
     }
