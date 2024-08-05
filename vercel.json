@@ -1,9 +1,16 @@
 {
-    "version": 2,
-    "rewrites": [
-        {
-            "source": "/(.*)",
-            "dest": "src"
-        }
+    "buildCommand": "bun install",
+    "devCommand": "bun run start",
+    "builds": [
+      {
+        "src": "index.ts",
+        "use": "@vercel/node"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "index.ts"
+      }
     ]
-}
+  }
