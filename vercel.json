@@ -3,7 +3,7 @@
     "devCommand": "bun run start",
     "builds": [
       {
-        "src": "index.ts",
+        "src": "src/index.ts",
         "use": "@vercel/node"
       }
     ],
