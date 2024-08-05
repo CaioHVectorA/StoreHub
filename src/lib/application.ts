@@ -60,9 +60,7 @@ export async function app({ request, response }: ApplicationProps, mainRouter: R
         }
         return query
     })()
-    console.log(req.query)
     const route = mainRouter.routes.find(route => route.pathname == req.pathname && route.method == req.method) || routeFound
-    // todo catch route not found error!
     try {
         if (!route) {
             const file = Bun.file(`${process.cwd()}/public/${request.pathname}`)
@@ -89,6 +87,7 @@ export async function app({ request, response }: ApplicationProps, mainRouter: R
         return response.status(500, {
             status: "error",
             message: `Internal server error - ${error.message}`,
+            stack: error.stack
         })
     }
 }

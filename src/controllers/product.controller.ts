@@ -14,10 +14,9 @@ export class ProductController {
         res.status(200, response)
     }
     get: ReqResCallback = async (req, res) => {
-        const { limit, index } = req.query
-        console.log(req.query)
-        console.log(limit, index)
-        const response = await this.service.getProducts(Number(limit) || 30, Number(index) || 0)
+        const { page } = req.query
+        const items = Number(req.query.quantity) || 30
+        const response = await this.service.getProducts(items, Number(page) * items || 0)
         console.log(response.length)
         res.status(200, response)
     }

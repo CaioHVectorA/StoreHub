@@ -24,8 +24,9 @@ export class ProductService {
         const barcode = await this.db.getBarcode(id)
         const file = Bun.file(path(barcode))
         const exists = await file.exists()
-        if (!exists) throw new AppError('Código de barras não encontrado!', 404)
-        return file
+        if (!exists) await storeBarcode(barcode)
+        // if (!exists) throw new AppError('Código de barras não encontrado!', 404)
+        return file || Bun.file(path(barcode))
     }
     async editProduct(id: number, data: Partial<Product>) {
         const res = await this.db.editProduct(id, data)
