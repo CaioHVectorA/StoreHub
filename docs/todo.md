@@ -1,0 +1,5 @@
+- [] Barcode scanner integration
+- [] Simulator of budgets regiões, WITH epochs system such as genetic algorithms
+ - [] Liquidation system
+ - [] Infer logicals
+- [] Mobile App integration
